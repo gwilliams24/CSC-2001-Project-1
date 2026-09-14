@@ -8,8 +8,9 @@ public class MainGUI extends JFrame {
     private JTextField dateField;
     private JTextField locationField;
     private JTextField maxField;
-
     private JTextArea outputArea;
+    private SessionList sessions;
+
 
     // there should be a private member variable named `sessions` :
     // private SomethingOrOther sessions;
@@ -18,7 +19,7 @@ public class MainGUI extends JFrame {
     // the class's member variables:
     public MainGUI() {
         // set sessions to a new empty list:
-        // sessions = ...
+        sessions = null;
         setTitle("Employee Mentorship and Inclusion Manager");
         setSize(600, 600);
         // when this frame/window closes, halt the whole program:
@@ -127,7 +128,7 @@ public class MainGUI extends JFrame {
 
         // between each one, print a separator line,
         // as e.g.
-
+        outputArea.append(SessionList.display(sessions));
         outputArea.append("\n--------------------\n");
     }
 
@@ -136,14 +137,16 @@ public class MainGUI extends JFrame {
         // Search by ID if the ID field is not empty
         if (!idField.getText().trim().isEmpty()) {
             int id = Integer.parseInt(idField.getText().trim());
+            String mentor = mentorField.getText(); //I added this idk if that is ok!
             // find session by ID, using a `searchByID` method
-            // ... code here ...
-            /* if (result != null)
-                // display session to the output area...
-            else
-                outputArea.setText("Session not found.");
-             */
+            SessionList result = SessionList.searchByID(sessions, id, mentor);
+            if (result != null){
+                outputArea.append(SessionList.display(result));}
+            else{
+                outputArea.setText("Session not found.");}
         }
+
+
         // Otherwise, search by mentor if the Mentor field is not empty
         else if (!mentorField.getText().trim().isEmpty()) {
             String mentor = mentorField.getText().trim();
