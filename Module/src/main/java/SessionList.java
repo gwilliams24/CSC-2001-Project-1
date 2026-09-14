@@ -1,30 +1,20 @@
 public record SessionList(Session first, SessionList rest) {
 
-    public static SessionList addSession(Session new_session, SessionList rest){
-        switch(rest){
-            case null:
-                return new SessionList(new_session, null);
-            case SessionList(Session f, SessionList r):
-                if (r == null) {
-                    if (f.date().compareTo(new_session.date()) < 0) {
-                        return new SessionList(f, new SessionList(new_session, null));
-                    } else {
-                        return new SessionList(new_session, new SessionList(f, null));
-                    }
-                } else {
-                    return new SessionList(f, addSession(r));
-                }
-        }
-    }
-
-    public static Session sortSession (SessionList list) {
+    public static SessionList addSession(SessionList list, Session add){
         switch(list){
             case null:
-                return null;
+                return new SessionList(add, null);
             case SessionList(Session f, SessionList r):
+                if (add.date().compareTo(f.date()) < 0) {
+                    return new SessionList(add, new SessionList(f, r));
+                } else {
+                    return new SessionList(f, addSession(r, add));
+                    }
 
         }
     }
+
+
 
 
     public static String display(SessionList list) {
@@ -33,9 +23,10 @@ public record SessionList(Session first, SessionList rest) {
                 return "";
             case SessionList(Session f, SessionList r):
                 if (r == null) {
-                    return f.id() + " " + f.title() + " " + f.mentor() + " " + f.date() + " " + f.location() + " " + f.currentParticipants() + " " + f.maxParticipants() + "\n--------------------\n";
+                    return f.id() + " " + f.title() + " " + f.mentor() + " " + f.date() + " " + f.location() + " " + f.maxParticipants() + "\n--------------------\n";
                 } else {
-                    return f.id() + " " + f.title() + " " + f.mentor() + " " + f.date() + " " + f.location() + " " + f.currentParticipants() + " " + f.maxParticipants() + "\n--------------------\n" + display(r);
+                    return f.id() + " " + f.title() + " " + f.mentor() + " " + f.date() + " " + f.location() + " " + f.maxParticipants() + "\n--------------------\n"
+                            + display(r);
                 }
 
         }
@@ -49,7 +40,7 @@ public record SessionList(Session first, SessionList rest) {
             case SessionList(Session f, SessionList r):
                 if (f.id() == session_id) {
                     return new SessionList(f, null);
-                } else if ((mentor == f.mentor()) && ) {  // figure out how to do null id here
+                } else if ((mentor == f.mentor())) {  // figure out how to do null id here
                     return new SessionList(f, searchByID(r, session_id, mentor));}
                 else{
                     return searchByID(r, session_id, mentor);
@@ -57,5 +48,18 @@ public record SessionList(Session first, SessionList rest) {
 
         }
     }
+
+    public static SessionList removeSession(SessionList list, int session_id){
+        switch(list){
+            case null:
+                return null;
+            case SessionList(Session f, SessionList r):
+                if (f.id() == session_id){
+                    return removeSession(r, session_id);}
+                else{
+                    return new SessionList(f, removeSession(r, session_id));
+                }
+        }
+    } // NEED TO MAKE SURE THAT THERE ARE NO REPEATS IN LIST
 
 }

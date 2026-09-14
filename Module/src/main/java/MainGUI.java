@@ -105,9 +105,8 @@ public class MainGUI extends JFrame {
             String date = dateField.getText();
             String location = locationField.getText();
             int maxParticipants = Integer.parseInt(maxField.getText());
-
-            // TO DO: construct a session object, insert it into
-            // the list of sessions
+            Session add = new Session(id, title, mentor, date, location, maxParticipants);
+            sessions = SessionList.addSession(sessions, add);
 
             outputArea.setText("Session Added Successfully\n");
             // Clear the input fields
@@ -172,6 +171,12 @@ public class MainGUI extends JFrame {
         // remove the session, print an error to the outputArea
         // if it's not found
         // ... code here ...
+        SessionList removed_list = SessionList.removeSession(sessions, id);
+        if (sessions == removed_list) {
+            outputArea.append("No sessions found with ID " + id + ".");}
+        else {
+            outputArea.append(SessionList.display(removed_list));}
+
     }
 
     // add one to the count of the specified session.

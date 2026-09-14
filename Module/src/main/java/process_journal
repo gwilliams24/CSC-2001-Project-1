@@ -3,7 +3,16 @@ Nelle & Gin's Project 1 Process Journal
 Day 1 (2026-09-13):
 - Worked on project from 5:00 - 7:00 pm
 - Created the display and search by ID button functions
+
+Day 2 (2026-09-14):
+- Worked on Project from 11:45 am - 12:45 pm
+- Created addSession and remove functions
+
+
+
 Need help with:
-- crating the variables
-- strings not comparing with dates
+- do we need to split up mentor and id functions for search?
+- how do you want us to test?
+- do you want code directly in Main GUI or is it ok we are calling functions from sessionlist?
+- participant thing? should current number of participants be in the session constructor?
 
