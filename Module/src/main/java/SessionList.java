@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public record SessionList(Session first, SessionList rest) {
 
     public static SessionList replaceSession(SessionList list, Session replace) {
@@ -45,19 +47,30 @@ public record SessionList(Session first, SessionList rest) {
         }
     }
 
-    public static SessionList searchByID(SessionList list, int session_id, String mentor) {
+    public static Session searchByIDID(SessionList list, int session_id) {
         switch (list) {
             case null:
                 return null;
             case SessionList(Session f, SessionList r):
                 if (f.id() == session_id) {
-                    return new SessionList(f, null);
-                } else if ((mentor == f.mentor())) {  // figure out how to do null id here
-                    return new SessionList(f, searchByID(r, session_id, mentor));
+                    return f;
                 } else {
-                    return searchByID(r, session_id, mentor);
+                    return searchByIDID(r, session_id);
                 }
 
+        }
+    }
+
+    public static SessionList searchByIDMentor(SessionList list, String mentor) {
+        switch (list) {
+            case null:
+                return null;
+            case SessionList(Session f, SessionList r):
+                if ((Objects.equals(mentor, f.mentor()))) {  // figure out how to do null id here
+                    return new SessionList(f, searchByIDMentor(r, mentor));
+                } else {
+                    return searchByIDMentor(r, mentor);
+                }
         }
     }
 
@@ -77,18 +90,19 @@ public record SessionList(Session first, SessionList rest) {
     public static SessionList registerParticipant(SessionList list, int id) {
         switch (list) {
             case null:
-                return null;
+                throw new IllegalArgumentException();
             case SessionList(Session f, SessionList r):
                 if (f.id() == id) {
                     int participants = f.currentParticipants() + 1;
-                    if (participants > f.currentParticipants()) {
+                    if (participants > f.maxParticipants()) {
                         throw new IllegalArgumentException();
                     } else {
-                        return replaceSession(list, new Session(f.id(), f.title(), f.mentor(), f.date(), f.location(),
+                        return replaceSession(list, new Session(id, f.title(), f.mentor(), f.date(), f.location(),
                                 participants, f.maxParticipants()));
                     }
-                } else {
-                    throw new IllegalArgumentException();
+                }
+                else {
+                    return registerParticipant(r, id);
                 }
         }
     }

@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
+import java.util.Objects;
 public class MainGUI extends JFrame {
     private JTextField idField;
     private JTextField titleField;
@@ -137,9 +138,9 @@ public class MainGUI extends JFrame {
             int id = Integer.parseInt(idField.getText().trim());
             String mentor = mentorField.getText(); //I added this idk if that is ok!
             // find session by ID, using a `searchByID` method
-            SessionList result = SessionList.searchByID(sessions, id, mentor);
+            Session result = SessionList.searchByIDID(sessions, id);
             if (result != null){
-                outputArea.setText(SessionList.display(result));}
+                outputArea.setText(SessionList.display(new SessionList(result, null)));}
             else{
                 outputArea.setText("Session not found.");}
         }
@@ -150,13 +151,13 @@ public class MainGUI extends JFrame {
             String mentor = mentorField.getText().trim();
             // find session by mentor. In this case, the result
             // may be a list of sessions...
-            // ... code here ...
-            /*
-            if (result != null)
+            SessionList result = SessionList.searchByIDMentor(sessions, mentor);
+            if (result != null) {
+                outputArea.setText(SessionList.display(result));
+            }
                 // display all sessions in the list
             else
                 outputArea.setText("No session found for mentor: " + mentor);
-             */
         }
         // Nothing entered
         else {
@@ -171,12 +172,12 @@ public class MainGUI extends JFrame {
         // if it's not found
         // ... code here ...
         SessionList removed_list = SessionList.removeSession(sessions, id);
-        if (sessions == removed_list) {
+        if (Objects.equals(sessions, removed_list)) {
             outputArea.setText("No sessions found with ID " + id + ".");}
         else {
             sessions = removed_list;
-            outputArea.setText(SessionList.display(removed_list));}
-
+            outputArea.setText(SessionList.display(sessions));}
+            outputArea.append("Removed session " + id + ".");
     }
 
     // add one to the count of the specified session.
