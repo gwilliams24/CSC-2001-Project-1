@@ -105,7 +105,7 @@ public class MainGUI extends JFrame {
             String date = dateField.getText();
             String location = locationField.getText();
             int maxParticipants = Integer.parseInt(maxField.getText());
-            Session add = new Session(id, title, mentor, date, location, maxParticipants);
+            Session add = new Session(id, title, mentor, date, location, 0, maxParticipants);
             sessions = SessionList.addSession(sessions, add);
 
             outputArea.setText("Session Added Successfully\n");
@@ -128,7 +128,6 @@ public class MainGUI extends JFrame {
         // between each one, print a separator line,
         // as e.g.
         outputArea.append(SessionList.display(sessions));
-        outputArea.append("\n--------------------\n");
     }
 
     // search by ID if presesnt, mentor otherwise, display results
@@ -140,7 +139,7 @@ public class MainGUI extends JFrame {
             // find session by ID, using a `searchByID` method
             SessionList result = SessionList.searchByID(sessions, id, mentor);
             if (result != null){
-                outputArea.append(SessionList.display(result));}
+                outputArea.setText(SessionList.display(result));}
             else{
                 outputArea.setText("Session not found.");}
         }
@@ -173,20 +172,24 @@ public class MainGUI extends JFrame {
         // ... code here ...
         SessionList removed_list = SessionList.removeSession(sessions, id);
         if (sessions == removed_list) {
-            outputArea.append("No sessions found with ID " + id + ".");}
+            outputArea.setText("No sessions found with ID " + id + ".");}
         else {
-            outputArea.append(SessionList.display(removed_list));}
+            sessions = removed_list;
+            outputArea.setText(SessionList.display(removed_list));}
 
     }
 
     // add one to the count of the specified session.
     // MUTATES participant count of session.
     private void registerParticipant() {
-        int id = Integer.parseInt(idField.getText());
-        // increment participants field of session,
-        // print success or failure message.
+        try {
+            int id = Integer.parseInt(idField.getText());
+            sessions = SessionList.registerParticipant(sessions, id);
+            outputArea.setText("Registration complete.");
+        } catch (Exception e) {
+            outputArea.setText("Could not register.");
+        }
     }
-
     public static void main(String[] args) {
         new MainGUI();
     }
