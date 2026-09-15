@@ -138,7 +138,7 @@ public class MainGUI extends JFrame {
             int id = Integer.parseInt(idField.getText().trim());
             String mentor = mentorField.getText(); //I added this idk if that is ok!
             // find session by ID, using a `searchByID` method
-            Session result = SessionList.searchByIDID(sessions, id);
+            Session result = SessionList.searchByID(sessions, id);
             if (result != null){
                 outputArea.setText(SessionList.display(new SessionList(result, null)));}
             else{
@@ -151,7 +151,7 @@ public class MainGUI extends JFrame {
             String mentor = mentorField.getText().trim();
             // find session by mentor. In this case, the result
             // may be a list of sessions...
-            SessionList result = SessionList.searchByIDMentor(sessions, mentor);
+            SessionList result = SessionList.searchByMentor(sessions, mentor);
             if (result != null) {
                 outputArea.setText(SessionList.display(result));
             }

@@ -2,13 +2,17 @@ Nelle & Gin's Project 1 Process Journal
 
 Day 1 (2026-09-13):
 - Worked on project from 5:00 - 7:00 pm
-- Created the display and search by ID button functions
+- Created the display and searchByID button functions
 
 Day 2 (2026-09-14):
-- Worked on Project from 11:45 am - 12:45 pm
-- Created addSession and remove functions
+- Worked on project from 11:45 am - 12:45 pm, 3:00 pm - 3:30 pm
+- Created addSession, removeSession, registerParticipant functions
+- Split searchByID into ID and mentor functions
 
-
+Day 3 2026-09-15):
+- Worked on project from 12:00
+- Cleaning up code
+- Created tests for SessionLists
 
 Need help with:
 - do we need to split up mentor and id functions for search?

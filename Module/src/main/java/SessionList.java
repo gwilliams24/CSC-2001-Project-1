@@ -47,7 +47,7 @@ public record SessionList(Session first, SessionList rest) {
         }
     }
 
-    public static Session searchByIDID(SessionList list, int session_id) {
+    public static Session searchByID(SessionList list, int session_id) {
         switch (list) {
             case null:
                 return null;
@@ -55,21 +55,21 @@ public record SessionList(Session first, SessionList rest) {
                 if (f.id() == session_id) {
                     return f;
                 } else {
-                    return searchByIDID(r, session_id);
+                    return searchByID(r, session_id);
                 }
 
         }
     }
 
-    public static SessionList searchByIDMentor(SessionList list, String mentor) {
+    public static SessionList searchByMentor(SessionList list, String mentor) {
         switch (list) {
             case null:
                 return null;
             case SessionList(Session f, SessionList r):
                 if ((Objects.equals(mentor, f.mentor()))) {  // figure out how to do null id here
-                    return new SessionList(f, searchByIDMentor(r, mentor));
+                    return new SessionList(f, searchByMentor(r, mentor));
                 } else {
-                    return searchByIDMentor(r, mentor);
+                    return searchByMentor(r, mentor);
                 }
         }
     }
