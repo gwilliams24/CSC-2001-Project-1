@@ -10,11 +10,12 @@ public class MainGUI extends JFrame {
     private JTextField locationField;
     private JTextField maxField;
     private JTextArea outputArea;
-    private SessionList sessions;
+
 
 
     // there should be a private member variable named `sessions` :
     // private SomethingOrOther sessions;
+    private SessionList sessions;
 
     // the constructor for the class. This will initialize
     // the class's member variables:
@@ -108,7 +109,6 @@ public class MainGUI extends JFrame {
             int maxParticipants = Integer.parseInt(maxField.getText());
             Session add = new Session(id, title, mentor, date, location, 0, maxParticipants);
             sessions = SessionList.addSession(sessions, add);
-
             outputArea.setText("Session Added Successfully\n");
             // Clear the input fields
             clearFields();
@@ -131,12 +131,11 @@ public class MainGUI extends JFrame {
         outputArea.append(SessionList.display(sessions));
     }
 
-    // search by ID if presesnt, mentor otherwise, display results
+    // search by ID if present, mentor otherwise, display results
     private void searchSession() {
         // Search by ID if the ID field is not empty
         if (!idField.getText().trim().isEmpty()) {
             int id = Integer.parseInt(idField.getText().trim());
-            String mentor = mentorField.getText(); //I added this idk if that is ok!
             // find session by ID, using a `searchByID` method
             Session result = SessionList.searchByID(sessions, id);
             if (result != null){
@@ -170,7 +169,6 @@ public class MainGUI extends JFrame {
         int id = Integer.parseInt(idField.getText());
         // remove the session, print an error to the outputArea
         // if it's not found
-        // ... code here ...
         SessionList removed_list = SessionList.removeSession(sessions, id);
         if (Objects.equals(sessions, removed_list)) {
             outputArea.setText("No sessions found with ID " + id + ".");}

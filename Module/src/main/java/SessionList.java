@@ -2,6 +2,7 @@ import java.util.Objects;
 
 public record SessionList(Session first, SessionList rest) {
 
+    // Method that replaces one Session list with another Session list
     public static SessionList replaceSession(SessionList list, Session replace) {
         switch (list) {
             case null:
@@ -15,6 +16,7 @@ public record SessionList(Session first, SessionList rest) {
         }
     }
 
+    // adds a Session to a Session List in the correct place chronologically
     public static SessionList addSession(SessionList list, Session add) {
         switch (list) {
             case null:
@@ -32,6 +34,7 @@ public record SessionList(Session first, SessionList rest) {
         }
     }
 
+    // Displays a Session list in the program
     public static String display(SessionList list) {
         switch (list) {
             case null:
@@ -47,6 +50,7 @@ public record SessionList(Session first, SessionList rest) {
         }
     }
 
+    // Finds a Session in a SessionList given a specific ID
     public static Session searchByID(SessionList list, int session_id) {
         switch (list) {
             case null:
@@ -61,6 +65,7 @@ public record SessionList(Session first, SessionList rest) {
         }
     }
 
+    // Finds a list of sessions in a SessionList given a specific mentor
     public static SessionList searchByMentor(SessionList list, String mentor) {
         switch (list) {
             case null:
@@ -74,6 +79,7 @@ public record SessionList(Session first, SessionList rest) {
         }
     }
 
+    // removes a session from a session list given a specific ID
     public static SessionList removeSession(SessionList list, int session_id) {
         switch (list) {
             case null:
@@ -87,6 +93,7 @@ public record SessionList(Session first, SessionList rest) {
         }
     }
 
+    // adds a participant to the current participants of a session given a specific ID
     public static SessionList registerParticipant(SessionList list, int id) {
         switch (list) {
             case null:
