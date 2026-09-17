@@ -2,20 +2,6 @@ import java.util.Objects;
 
 public record SessionList(Session first, SessionList rest) {
 
-    // Method that replaces one Session list with another Session list
-    public static SessionList replaceSession(SessionList list, Session replace) {
-        switch (list) {
-            case null:
-                return null;
-            case SessionList(Session f, SessionList r):
-                if (f.id() == replace.id()) {
-                    return new SessionList(replace, r);
-                } else {
-                    return new SessionList(f, replaceSession(r, replace));
-                }
-        }
-    }
-
     // adds a Session to a Session List in the correct place chronologically
     public static SessionList addSession(SessionList list, Session add) {
         switch (list) {
@@ -71,7 +57,7 @@ public record SessionList(Session first, SessionList rest) {
             case null:
                 return null;
             case SessionList(Session f, SessionList r):
-                if ((Objects.equals(mentor, f.mentor()))) {  // figure out how to do null id here
+                if ((Objects.equals(mentor, f.mentor()))) {
                     return new SessionList(f, searchByMentor(r, mentor));
                 } else {
                     return searchByMentor(r, mentor);
@@ -89,6 +75,20 @@ public record SessionList(Session first, SessionList rest) {
                     return removeSession(r, session_id);
                 } else {
                     return new SessionList(f, removeSession(r, session_id));
+                }
+        }
+    }
+
+    // Method that replaces one Session list with another Session list
+    public static SessionList replaceSession(SessionList list, Session replace) {
+        switch (list) {
+            case null:
+                return null;
+            case SessionList(Session f, SessionList r):
+                if (f.id() == replace.id()) {
+                    return new SessionList(replace, r);
+                } else {
+                    return new SessionList(f, replaceSession(r, replace));
                 }
         }
     }
