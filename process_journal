@@ -9,14 +9,16 @@ Day 2 (2026-09-14):
 - Created addSession, removeSession, registerParticipant functions
 - Split searchByID into ID and mentor functions
 
-Day 3 2026-09-15):
-- Worked on project from 12:00
+Day 3 (2026-09-15):
+- Worked on project from 12:00 - 1:00 pm
 - Cleaning up code
-- Created tests for SessionLists
+- Started creating tests for SessionLists
 
-Need help with:
-- do we need to split up mentor and id functions for search?
-- how do you want us to test?
-- do you want code directly in Main GUI or is it ok we are calling functions from sessionlist?
-- participant thing? should current number of participants be in the session constructor?
+Day 4 (2026-09-16):
+- Worked on project from 4:00-4:45 pm
+- Created tests for addSession, search by ID, search by Mentor, replace session
+
+Day 5 (2026-09-18):
+- Worked on project from 2:00 - 2:30 pm
+- Created tests for display, remove session, register participants
 
